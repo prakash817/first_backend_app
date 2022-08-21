@@ -1,14 +1,15 @@
 const express = require("express")
 
 require('dotenv').config()
-
+const cors = require("cors")
 const connection = require("./config/db")
 const DataModel = require("./models/Data.model")
 
 
 const app = express();
-
+const PORT = process.env.PORT || 8000
 app.use(express.json())
+app.use(cors())
 
 
 app.get("/", async (req, res) => {
@@ -26,7 +27,7 @@ app.get("/", async (req, res) => {
 
 
 
-app.listen(process.env.PORT, async () => {
+app.listen(PORT, async () => {
     try{
         await connection
         console.log("db connnected")
@@ -35,6 +36,6 @@ app.listen(process.env.PORT, async () => {
         console.log("error connecting to db")
         console.log(err)
     }
-    console.log(`listening on port ${process.env.PORT}`)
+    console.log(`listening on port ${PORT}`)
 })
 
